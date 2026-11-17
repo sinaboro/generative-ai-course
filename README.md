@@ -25,7 +25,7 @@ LLM 을 처음 다루는 **초보자**를 위한 자기주도 학습 과정이�
 
 | Part | 주제 | 주요 내용 | 시간 | 교안 |
 |:---:|---|---|---:|:---:|
-| 08 | [LangChain](08_LangChain_%EC%8B%AC%ED%99%94/) | 모델 · 프롬프트 체인(|) · 구조화 출력 · 작은 RAG | 3h | [📘](08_LangChain_%EC%8B%AC%ED%99%94/08_LangChain_%EC%8B%AC%ED%99%94_%EA%B5%90%EC%95%88.docx) |
+| 08 | [LangChain](08_LangChain_%EC%8B%AC%ED%99%94/) | 모델 · 프롬프트 체인(파이프) · 구조화 출력 · 작은 RAG | 3h | [📘](08_LangChain_%EC%8B%AC%ED%99%94/08_LangChain_%EC%8B%AC%ED%99%94_%EA%B5%90%EC%95%88.docx) |
 | 10 | [LangGraph](10_LangGraph_%EC%8B%AC%ED%99%94/) | State · Node · Edge · 조건 갈림길 · 도구를 쓰는 에이전트 | 4h | [📘](10_LangGraph_%EC%8B%AC%ED%99%94/10_LangGraph_%EC%8B%AC%ED%99%94_%EA%B5%90%EC%95%88.docx) |
 | 11 | [MCP 와 안전한 AI 서비스](11_MCP%EC%99%80_%EC%95%88%EC%A0%84%ED%95%9C_AI_%EC%8B%AC%ED%99%94/) | 프롬프트 인젝션 · 개인정보 가리기 · 비용 한도 · 자동 평가 · MCP 서버 · AGENTS.md | 3h | [📘](11_MCP%EC%99%80_%EC%95%88%EC%A0%84%ED%95%9C_AI_%EC%8B%AC%ED%99%94/11_MCP%EC%99%80_%EC%95%88%EC%A0%84%ED%95%9C_AI_%EC%8B%AC%ED%99%94_%EA%B5%90%EC%95%88.docx) |
 
