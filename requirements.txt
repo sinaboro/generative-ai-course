@@ -1,0 +1,4 @@
+# 생성형 AI 과정 (Part 01 ~ 03)
+openai>=1.40
+python-dotenv>=1.0
+tiktoken>=0.7
