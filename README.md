@@ -3,7 +3,7 @@
 LLM 을 처음 다루는 **초보자**를 위한 자기주도 학습 과정이에요. 생성형 AI 의 원리, 프롬프트 엔지니어링, Python 으로 LLM API 부르기부터 웹 챗봇, 임베딩 · RAG, AI Agent, 최종 프로젝트까지 단계별로 배워요. 모든 예제는 실제 LLM(OpenRouter)으로 실행한 결과를 교안에 실었어요.
 
 - **강사**: 김대철
-- 📕 **통합 교안 PDF**: [생성형AI_통합교안.pdf](%EC%83%9D%EC%84%B1%ED%98%95AI_%ED%86%B5%ED%95%A9%EA%B5%90%EC%95%88.pdf) (현재 Part 01 ~ 03, 65쪽 · 학습 안내 · 용어 사전 · 막힐 때 점검표 포함)
+- 📕 **통합 교안 PDF**: [생성형AI_통합교안.pdf](%EC%83%9D%EC%84%B1%ED%98%95AI_%ED%86%B5%ED%95%A9%EA%B5%90%EC%95%88.pdf) (현재 기본 Part 01 ~ 03 + 심화 Part 08 · 10 · 11, 117쪽 · 학습 안내 · 용어 사전 · 막힐 때 점검표 포함)
 - **실습 환경**: Windows + Python 3.12 이상 + VS Code + OpenRouter API 키 (키가 없으면 "연습 모드"로 실행돼요)
 - 함께 보면 좋은 과정: [ai-service-course](https://github.com/sinaboro/ai-service-course) (Python · HTML/CSS · JavaScript · FastAPI · AI 딥러닝)
 
@@ -23,11 +23,11 @@ LLM 을 처음 다루는 **초보자**를 위한 자기주도 학습 과정이�
 
 **심화 과정 (선택 · 스스로 학습, 10시간)**
 
-| Part | 주제 | 주요 내용 | 상태 |
-|:---:|---|---|:---:|
-| 08 | LangChain | Prompt · Model · Retriever · Chain | 준비 중 |
-| 10 | LangGraph | State · Node · Edge · 조건 분기 | 준비 중 |
-| 11 | MCP 와 안전한 AI 서비스 | MCP · 프롬프트 인젝션 · 개인정보 · 권한 · 평가 | 준비 중 |
+| Part | 주제 | 주요 내용 | 시간 | 교안 |
+|:---:|---|---|---:|:---:|
+| 08 | [LangChain](08_LangChain_%EC%8B%AC%ED%99%94/) | 모델 · 프롬프트 체인(|) · 구조화 출력 · 작은 RAG | 3h | [📘](08_LangChain_%EC%8B%AC%ED%99%94/08_LangChain_%EC%8B%AC%ED%99%94_%EA%B5%90%EC%95%88.docx) |
+| 10 | [LangGraph](10_LangGraph_%EC%8B%AC%ED%99%94/) | State · Node · Edge · 조건 갈림길 · 도구를 쓰는 에이전트 | 4h | [📘](10_LangGraph_%EC%8B%AC%ED%99%94/10_LangGraph_%EC%8B%AC%ED%99%94_%EA%B5%90%EC%95%88.docx) |
+| 11 | [MCP 와 안전한 AI 서비스](11_MCP%EC%99%80_%EC%95%88%EC%A0%84%ED%95%9C_AI_%EC%8B%AC%ED%99%94/) | 프롬프트 인젝션 · 개인정보 가리기 · 비용 한도 · 자동 평가 · MCP 서버 · AGENTS.md | 3h | [📘](11_MCP%EC%99%80_%EC%95%88%EC%A0%84%ED%95%9C_AI_%EC%8B%AC%ED%99%94/11_MCP%EC%99%80_%EC%95%88%EC%A0%84%ED%95%9C_AI_%EC%8B%AC%ED%99%94_%EA%B5%90%EC%95%88.docx) |
 
 ## 🛠 시작하기
 
