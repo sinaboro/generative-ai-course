@@ -2,3 +2,9 @@
 openai>=1.40
 python-dotenv>=1.0
 tiktoken>=0.7
+# 심화 과정 (Part 08 · 10 · 11)
+langchain>=1.0
+langchain-openai>=1.0
+langgraph>=1.0
+mcp>=2.0
+numpy>=1.26
