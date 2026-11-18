@@ -9,3 +9,9 @@ venv/
 vector_store*.json
 # Part 09 MCP 메모 서버가 만드는 파일
 memos.txt
+# Part 10 실행하면 생기는 파일들
+*_store.json
+bookings.txt
+*.pt
+10_최종_프로젝트/B_YOLO_리포트/bus.jpg
+10_최종_프로젝트/B_YOLO_리포트/images/*.jpg

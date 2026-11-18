@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>새싹전자 사내 도우미</title>
+  <style>
+    body { font-family: sans-serif; max-width: 680px; margin: 30px auto; padding: 0 16px; background: #fafafa; }
+    header { display: flex; align-items: center; justify-content: space-between; }
+    #user { padding: 6px; width: 120px; }
+    #chat { background: white; border: 1px solid #ddd; border-radius: 10px; padding: 12px; height: 560px; overflow-y: auto; }
+    .human { text-align: right; margin: 10px 0; }
+    .ai { text-align: left; margin: 10px 0; }
+    .bubble { display: inline-block; padding: 9px 13px; border-radius: 14px; max-width: 80%; white-space: pre-wrap; text-align: left; }
+    .human .bubble { background: #7c5cff; color: white; }
+    .ai .bubble { background: #f1f0f7; }
+    .tool { display: inline-block; margin: 4px 4px 0 0; padding: 2px 8px; border-radius: 10px; background: #e3f6e8; color: #20703a; font-size: 12px; }
+    #message { width: 78%; padding: 9px; font-size: 16px; margin-top: 12px; }
+    button { padding: 9px 16px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>🌱 새싹전자 사내 도우미</h2>
+    <label>이름 <input id="user" value="김민지"></label>
+  </header>
+  <div id="chat"></div>
+  <input id="message" placeholder="규정 · 계산 · 회의실 예약을 물어보세요" onkeydown="if (event.key === 'Enter') send()">
+  <button onclick="send()">보내기</button>
+
+  <script>
+    // 말풍선 하나 더하기 (tools 는 AI 가 쓴 도구 이름 목록)
+    function addBubble(role, text, tools) {
+      const line = document.createElement("div");
+      line.className = role;
+      const bubble = document.createElement("div");
+      bubble.className = "bubble";
+      bubble.textContent = text;
+      if (tools) {
+        for (const name of tools) {          // 쓴 도구를 작은 표로 보여 줘요
+          const tag = document.createElement("span");
+          tag.className = "tool";
+          tag.textContent = "🔧 " + name;
+          bubble.appendChild(document.createElement("br"));
+          bubble.appendChild(tag);
+        }
+      }
+      line.appendChild(bubble);
+      const chat = document.getElementById("chat");
+      chat.appendChild(line);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    async function send() {
+      const input = document.getElementById("message");
+      const message = input.value;
+      if (message === "") {
+        return;
+      }
+      input.value = "";
+      addBubble("human", message);
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: document.getElementById("user").value, message: message })
+      });
+      const data = await response.json();
+      addBubble("ai", data.answer, data.tools);
+    }
+  </script>
+</body>
+</html>

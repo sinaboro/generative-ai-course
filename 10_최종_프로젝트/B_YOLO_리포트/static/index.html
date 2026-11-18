@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>거리 사진 안전 리포트</title>
+  <style>
+    body { font-family: sans-serif; max-width: 680px; margin: 30px auto; padding: 0 16px; }
+    #result img { max-width: 100%; border-radius: 8px; margin-top: 12px; }
+    .card { margin-top: 12px; padding: 14px 16px; background: #f3f0ff; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h2>📷 거리 사진 안전 리포트 (YOLO + LLM)</h2>
+  <input type="file" id="photo" accept="image/*">
+  <button onclick="analyze()">분석하기</button>
+  <div id="result"></div>
+
+  <script>
+    async function analyze() {
+      const file = document.getElementById("photo").files[0];
+      if (!file) {
+        return;
+      }
+      const box = document.getElementById("result");
+      box.textContent = "분석하는 중...";
+      const form = new FormData();            // 파일을 보낼 때는 FormData 를 써요
+      form.append("file", file);
+      const response = await fetch("/analyze", { method: "POST", body: form });
+      const data = await response.json();
+
+      box.innerHTML = "";
+      const img = document.createElement("img");
+      img.src = "/result.jpg?t=" + Date.now();   // 새 사진을 다시 받아 오게 시각을 붙여요
+      box.appendChild(img);
+      const card = document.createElement("div");
+      card.className = "card";
+      let text = "찾은 물체: " + JSON.stringify(data.counts) + "\n요약: " + data.summary;
+      for (const note of data.safety_notes) {
+        text = text + "\n⚠️ " + note;
+      }
+      card.style.whiteSpace = "pre-wrap";
+      card.textContent = text;
+      box.appendChild(card);
+    }
+  </script>
+</body>
+</html>
