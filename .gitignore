@@ -7,3 +7,5 @@ __pycache__/
 venv/
 # Part 07 ex04 가 만드는 벡터 저장소 (각자 만들어 써요)
 vector_store*.json
+# Part 09 MCP 메모 서버가 만드는 파일
+memos.txt

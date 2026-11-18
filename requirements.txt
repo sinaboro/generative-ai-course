@@ -8,3 +8,5 @@ uvicorn>=0.30
 numpy>=1.26
 pypdf>=4.0
 langchain-text-splitters>=1.0
+langgraph>=1.0
+mcp>=2.0

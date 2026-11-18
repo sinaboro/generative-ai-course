@@ -1,0 +1,26 @@
+# ex02_pii_mask.py : 개인정보 가리기 — AI 에게 보내기 전에 전화번호 · 이메일 · 주민번호를 지워요
+import re                                     # 글자 모양(패턴)으로 찾고 바꾸는 도구 (정규 표현식)
+
+from common import get_llm
+
+# [이름, 찾을 모양] — \d 는 숫자 하나, {6} 은 6번, - 는 빼기 기호 그대로
+PATTERNS = [
+    ["주민번호", r"\d{6}-\d{7}"],                      # 숫자 6개 - 숫자 7개
+    ["전화번호", r"01\d-\d{3,4}-\d{4}"],               # 01? - 숫자 3~4개 - 숫자 4개
+    ["이메일", r"[\w.]+@[\w.]+"],                       # 글자들 @ 글자들
+]
+
+
+def mask(text):
+    """정해 둔 모양과 같은 글자를 [종류] 로 바꿔요."""
+    for name, pattern in PATTERNS:
+        text = re.sub(pattern, "[" + name + "]", text)   # re.sub(모양, 바꿀 글자, 원래 글)
+    return text
+
+
+raw = ("안녕하세요, 김민지입니다. 환불 요청드려요. 연락처는 010-1234-5678, "
+       "메일은 minji@example.com 이고 주민번호는 990101-2345678 입니다.")
+safe = mask(raw)
+print("원래 글:", raw)
+print("가린 글:", safe)
+print("AI 요약:", get_llm(temperature=0).invoke("고객 문의를 한 문장으로 요약해: " + safe).content)
