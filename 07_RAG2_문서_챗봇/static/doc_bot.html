@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>새싹전자 안내서 챗봇</title>
+  <style>
+    body { font-family: sans-serif; max-width: 640px; margin: 40px auto; padding: 0 16px; }
+    #question { width: 75%; padding: 8px; font-size: 16px; }
+    button { padding: 8px 16px; font-size: 16px; }
+    .card { margin-top: 16px; padding: 14px 16px; background: #f3f0ff; border-radius: 8px; }
+    .q { font-weight: bold; margin-bottom: 6px; }
+    .pages { margin-top: 8px; font-size: 13px; color: #6b5fa8; }
+  </style>
+</head>
+<body>
+  <h1>📘 새싹전자 안내서 챗봇</h1>
+  <p>직원 안내서(PDF)에서 찾아 답하고, 찾아본 쪽을 알려 줘요.</p>
+  <input id="question" placeholder="예: 연차는 며칠이에요?">
+  <button onclick="send()">물어보기</button>
+  <div id="answers"></div>
+
+  <script>
+    async function send() {
+      const question = document.getElementById("question").value;
+      if (question === "") {
+        return;
+      }
+      // 질문 · 답 · 쪽 번호를 보여 줄 카드 하나 만들기
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = '<div class="q"></div><div class="a">찾아보는 중...</div><div class="pages"></div>';
+      card.querySelector(".q").textContent = "Q. " + question;
+      document.getElementById("answers").prepend(card);   // 새 카드를 맨 위에
+
+      const response = await fetch("/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: question })
+      });
+      const data = await response.json();
+      card.querySelector(".a").textContent = data.answer;
+      card.querySelector(".pages").textContent = "📄 찾아본 쪽: " + data.pages.join(", ");
+    }
+  </script>
+</body>
+</html>
