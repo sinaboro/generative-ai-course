@@ -17,7 +17,7 @@ print("[invoke] 첫 글자가 보이기까지:", round(time.time() - start, 1), 
 # ② stream : 첫 조각이 오자마자 보여 줄 수 있어요
 start = time.time()
 first = True                                  # 아직 첫 조각을 안 받았다는 표시
-for piece in chain.stream({"topic": "인공지능"}):   # 체인도 stream 을 쓸 수 있어요
+for piece in chain.stream({"topic": "인공지능"}):   # 조각을 받기만 해요 (시간만 재려고 출력은 안 해요)
     if first:
         print("[stream] 첫 글자가 보이기까지:", round(time.time() - start, 1), "초")
         first = False

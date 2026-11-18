@@ -9,11 +9,10 @@ from my_tools import calculator, show_steps
 @tool
 def convert_unit(value: float, unit: str) -> str:
     """길이 · 무게 단위를 미터법으로 바꿔요. unit 은 inch, feet, mile, pound 중 하나."""
-    rates = {"inch": [2.54, "cm"], "feet": [30.48, "cm"], "mile": [1.609, "km"], "pound": [0.4536, "kg"]}
+    rates = {"inch": [2.54, "cm"], "feet": [30.48, "cm"], "mile": [1.609, "km"], "pound": [0.4536, "kg"]}   # 단위: [곱할 수, 새 단위]
     if unit not in rates:
         return "모르는 단위예요: " + unit
-    number = rates[unit][0]
-    new_unit = rates[unit][1]
+    number, new_unit = rates[unit]            # [2.54, "cm"] 을 두 변수로 나눠 받기
     return str(value) + " " + unit + " = " + str(round(value * number, 2)) + " " + new_unit
 
 

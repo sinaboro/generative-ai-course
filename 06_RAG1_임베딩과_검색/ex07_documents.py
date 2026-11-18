@@ -7,7 +7,7 @@ from faq_data import FAQ
 
 docs = []
 for line in FAQ:
-    category, text = line.split(": ", 1)              # "환불: 제품을 …" → "환불" 과 "제품을 …"
+    category, text = line.split(": ", 1)              # 첫 ": " 에서 한 번만 잘라 "환불" 과 "제품을 …" 으로
     doc = Document(page_content=text, metadata={"category": category})   # 글 + 꼬리표
     docs.append(doc)
 print("첫 번째 문서:", docs[0])

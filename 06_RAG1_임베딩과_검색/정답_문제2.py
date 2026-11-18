@@ -13,7 +13,8 @@ LIBRARY = [
     "열람실: 2층 열람실은 시험 기간에 밤 10시까지 열어요.",
     "분실: 책을 잃어버리면 같은 책으로 사 오거나 책값을 내야 해요.",
 ]
-retriever = InMemoryVectorStore.from_texts(LIBRARY, get_embeddings()).as_retriever(search_kwargs={"k": 2})
+store = InMemoryVectorStore.from_texts(LIBRARY, get_embeddings())   # 안내문을 숫자로 바꿔 저장
+retriever = store.as_retriever(search_kwargs={"k": 2})             # 비슷한 2개를 찾는 검색기
 
 template = ChatPromptTemplate.from_template("""너는 학교 도서관 안내 도우미야. [자료] 에 있는 내용으로만 짧게 답해.
 자료로 알 수 있는 내용이면(예: 운영 시간으로 열었는지 닫았는지) 그 근거와 함께 답해.

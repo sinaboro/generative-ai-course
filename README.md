@@ -3,7 +3,7 @@
 파이썬 기초만 아는 **초보자**가 이 교안만 보고도 따라 할 수 있게 만든 자기주도 학습 과정이에요. 생성형 AI 의 원리부터 LangChain 으로 AI 부르기, 프롬프트, 웹 챗봇, RAG(문서 기반 답변), LangGraph 에이전트, MCP 와 안전한 서비스, 최종 프로젝트까지 한 줄로 이어서 배워요. 모든 예제는 실제 AI(OpenRouter)로 실행한 결과를 교안에 실었어요.
 
 - **강사**: 김대철
-- 📕 **통합 교안 PDF**: [생성형AI_통합교안.pdf](%EC%83%9D%EC%84%B1%ED%98%95AI_%ED%86%B5%ED%95%A9%EA%B5%90%EC%95%88.pdf) (Part 01 ~ 10 전체, 257쪽 · 학습 안내 · 진도표 · 쉬운 용어 사전 · 막힐 때 점검표)
+- 📕 **통합 교안 PDF**: [생성형AI_통합교안.pdf](%EC%83%9D%EC%84%B1%ED%98%95AI_%ED%86%B5%ED%95%A9%EA%B5%90%EC%95%88.pdf) (Part 01 ~ 10 전체, 258쪽 · 학습 안내 · 진도표 · 쉬운 용어 사전 · 막힐 때 점검표)
 - **실습 환경**: Windows + Python 3.12 이상 + VS Code + OpenRouter API 키 (키가 없으면 "연습 모드"로 실행돼요)
 - 먼저 들으면 좋은 과정: [ai-service-course](https://github.com/sinaboro/ai-service-course) 의 Python 기초 (05 웹 앱은 HTML · CSS · JavaScript · FastAPI 과정과 이어져요)
 

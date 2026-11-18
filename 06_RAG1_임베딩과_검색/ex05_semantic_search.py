@@ -11,8 +11,8 @@ for query in ["돈을 돌려받고 싶어요", "물건이 언제 와요?"]:
     for i in range(len(FAQ)):                         # ③ 안내문마다 비슷한 정도 계산
         score = similarity(query_vector, faq_vectors[i])
         results.append([score, FAQ[i]])               # [점수, 문장] 을 모아요
-    results.sort(reverse=True)                        # ④ 점수가 큰 순서로 정렬
+    results.sort(reverse=True)                        # ④ 첫 칸(점수)이 큰 순서로 정렬
 
     print("질문:", query)
-    for k in range(2):                                # 위에서 2개만
-        print("  ", round(results[k][0], 3), results[k][1])
+    for score, sentence in results[:2]:               # 위에서 2개만, [점수, 문장] 을 두 변수로
+        print("  ", round(score, 3), sentence)

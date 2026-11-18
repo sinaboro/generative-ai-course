@@ -12,7 +12,7 @@ for box in result.boxes:                      # 찾은 상자(물체) 하나씩
     name = result.names[int(box.cls)]         # 종류 번호 → 이름
     confidence = float(box.conf)              # 얼마나 확신하는지 (0 ~ 1)
     print(name, "(확신", round(confidence, 2), ")")
-    counts[name] = counts.get(name, 0) + 1
+    counts[name] = counts.get(name, 0) + 1    # get(name, 0): 처음 나온 종류면 0 에서 시작
 
 print("종류별 개수:", counts)
 result.save(filename="images/result.jpg")    # 상자를 그린 사진 저장

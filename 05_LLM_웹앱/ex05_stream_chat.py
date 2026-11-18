@@ -21,11 +21,6 @@ class ChatRequest(BaseModel):
     message: str
 
 
-def make_pieces(message):         # 답 조각을 하나씩 내보내는 함수
-    for piece in chain.stream({"message": message}):
-        yield piece               # yield : return 과 비슷하지만, 끝내지 않고 하나씩 계속 내보내요
-
-
 @app.get("/")
 def home():
     return FileResponse("static/ex05_stream.html")
@@ -33,7 +28,7 @@ def home():
 
 @app.post("/chat-stream")
 def chat_stream(request: ChatRequest):
-    pieces = make_pieces(request.message)
+    pieces = chain.stream({"message": request.message})   # 답 조각을 차례로 내주는 통로 (Part 04 의 stream)
     return StreamingResponse(pieces, media_type="text/plain; charset=utf-8")   # 조각이 생길 때마다 보내요
 
 

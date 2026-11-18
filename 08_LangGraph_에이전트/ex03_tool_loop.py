@@ -14,8 +14,8 @@ messages.append(answer)
 turn = 1
 while answer.tool_calls:                      # ⭐ AI 가 도구를 부탁하는 동안 계속 반복
     for call in answer.tool_calls:
-        tool = tools_by_name[call["name"]]    # 부탁한 이름의 도구를 꺼내
-        result = tool.invoke(call["args"])    # 우리 코드가 실제로 실행하고
+        chosen_tool = tools_by_name[call["name"]]   # 부탁한 이름의 도구를 꺼내
+        result = chosen_tool.invoke(call["args"])   # 우리 코드가 실제로 실행하고
         print(turn, "번째 | 도구:", call["name"], call["args"], "→", result)
         messages.append(ToolMessage(content=result, tool_call_id=call["id"]))   # 결과를 대화에 붙여요
     answer = llm_with_tools.invoke(messages)  # 결과를 보고 AI 가 다시 생각해요

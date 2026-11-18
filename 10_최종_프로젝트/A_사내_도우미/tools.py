@@ -57,9 +57,9 @@ def read_bookings():
 def list_bookings(day: str) -> str:
     """그날(YYYY-MM-DD)의 회의실 예약 현황을 보여 줘요."""
     lines = []
-    for booking in read_bookings():
-        if booking[0] == day:
-            lines.append(booking[1] + " " + booking[2] + " (" + booking[3] + ")")
+    for booking_day, booking_time, booking_room, booking_name in read_bookings():   # 날짜 · 시각 · 회의실 · 이름
+        if booking_day == day:
+            lines.append(booking_time + " " + booking_room + " (" + booking_name + ")")
     if len(lines) == 0:
         return day + " 에는 예약이 없어요. 회의실: " + ", ".join(ROOMS)
     return day + " 예약: " + ", ".join(lines)
@@ -72,9 +72,9 @@ def book_room(day: str, time: str, room: str, name: str) -> str:
         return "예약자 이름이 비어 있어요. 이름을 알려 주세요."
     if room not in ROOMS:
         return "없는 회의실이에요. 고를 수 있는 곳: " + ", ".join(ROOMS)
-    for booking in read_bookings():
-        if booking[0] == day and booking[1] == time and booking[2] == room:
-            return "이미 예약된 시간이에요: " + day + " " + time + " " + room + " (" + booking[3] + ")"
+    for booking_day, booking_time, booking_room, booking_name in read_bookings():
+        if booking_day == day and booking_time == time and booking_room == room:
+            return "이미 예약된 시간이에요: " + day + " " + time + " " + room + " (" + booking_name + ")"
     with open(BOOKING_FILE, "a", encoding="utf-8") as file:
         file.write(day + "|" + time + "|" + room + "|" + name + "\n")
     return "예약했어요: " + day + " " + time + " " + room + " (" + name + ")"

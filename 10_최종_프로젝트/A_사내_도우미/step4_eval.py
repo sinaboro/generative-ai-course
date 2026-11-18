@@ -39,7 +39,7 @@ for kind, question, expected in tests:
         mark = "X"
     if mark == "O":
         passed = passed + 1
-    print(mark, "[" + kind + "]", question[:28])
+    print(mark, "[" + kind + "]", question[:28])    # [:28] = 앞 28글자만 (줄이 너무 길지 않게)
     print("     답:", reply.replace("\n", " ")[:90])
     print("     도구:", tools_used, "| 채점:", grade.reason[:60])
 

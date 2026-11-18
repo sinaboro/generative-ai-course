@@ -10,9 +10,11 @@ next_words = {}
 for sentence in sentences:
     words = sentence.split()
     for i in range(len(words) - 1):
-        if words[i] not in next_words:
-            next_words[words[i]] = []
-        next_words[words[i]].append(words[i + 1])
+        now = words[i]                    # 지금 낱말
+        after = words[i + 1]              # 바로 다음 낱말
+        if now not in next_words:
+            next_words[now] = []
+        next_words[now].append(after)
 
 random.seed(5)
 for count in range(3):

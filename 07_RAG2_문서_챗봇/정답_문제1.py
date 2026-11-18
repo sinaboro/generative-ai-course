@@ -23,7 +23,8 @@ for size in [30, 300, 1000]:
     sent = 0                                  # AI 에게 보낸 자료 글자 수 합계 (많을수록 요금도 늘어요)
     for question, must_have in tests:
         answer, pages = ask(store, question, k=2)
-        sent = sent + len(make_context(store.similarity_search(question, k=2)))
+        found = store.similarity_search(question, k=2)   # ask 가 AI 에게 건넨 것과 같은 조각 2개
+        sent = sent + len(make_context(found))           # 그 자료의 글자 수를 더해요
         if must_have in answer:
             passed = passed + 1
     print("chunk_size", size, "| 조각", len(chunks), "개 | 점수", passed, "/", len(tests), "| 보낸 글자", sent)

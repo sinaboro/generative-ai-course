@@ -15,11 +15,12 @@ query_vector = embeddings.embed_query(query)
 sentence_vectors = embeddings.embed_documents(sentences)
 results = []
 for i in range(len(sentences)):
-    results.append([similarity(query_vector, sentence_vectors[i]), sentences[i]])
-results.sort(reverse=True)
+    score = similarity(query_vector, sentence_vectors[i])
+    results.append([score, sentences[i]])       # [점수, 문장]
+results.sort(reverse=True)                      # 점수가 큰 순서로
 
 print("질문:", query)
 rank = 0
-for item in results:
+for score, sentence in results:
     rank = rank + 1
-    print(rank, "등", round(item[0], 3), item[1])
+    print(rank, "등", round(score, 3), sentence)

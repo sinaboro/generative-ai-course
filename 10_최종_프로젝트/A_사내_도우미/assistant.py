@@ -28,9 +28,9 @@ def answer(user_id, text):
     result = agent.invoke({"messages": [{"role": "user", "content": content}]}, config)
 
     tools_used = []                           # ③ 이번 질문에서 쓴 도구 모으기
-    for message in reversed(result["messages"]):   # 뒤에서부터 거꾸로 보다가
-        if message.type == "human":           # 이번 질문을 만나면 멈춰요
-            break
+    for message in result["messages"]:        # 앞 대화까지 처음부터 차례로 보면서
+        if message.type == "human":           # 사람 질문이 나오면 처음부터 다시 모아요
+            tools_used = []                   # → 마지막에는 이번 질문의 도구만 남아요
         if message.type == "tool" and message.name not in tools_used:
-            tools_used.insert(0, message.name)
+            tools_used.append(message.name)
     return check_output(result["messages"][-1].content), tools_used   # ④ 출력 검사

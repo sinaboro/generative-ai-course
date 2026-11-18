@@ -23,7 +23,8 @@ class State(TypedDict):
 
 
 def classify(state: State):
-    return {"category": classifier.invoke("고객 문의를 분류해: " + state["question"]).category}
+    result = classifier.invoke("고객 문의를 분류해: " + state["question"])
+    return {"category": result.category}
 
 
 def refund(state: State):

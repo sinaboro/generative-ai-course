@@ -17,5 +17,10 @@ config = {"configurable": {"thread_id": "me"}}
 
 for text in ["오늘 날짜가 며칠이야?", "'금요일 3시 팀 회의' 를 메모해 줘.", "지금까지 메모를 모두 보여 줘."]:
     result = agent.invoke({"messages": [{"role": "user", "content": text}]}, config)
-    show_steps(result["messages"][-4:])        # 이번 질문에서 새로 생긴 메시지 위주로 보여 줘요
+    new_messages = []                         # 이번 질문부터 생긴 메시지만 모아요
+    for message in result["messages"]:        # 앞 대화까지 모두 들어 있어서
+        if message.type == "human":           # 사람 질문이 나올 때마다 처음부터 다시 모으면
+            new_messages = []                 # 마지막에는 이번 질문 뒤의 메시지만 남아요
+        new_messages.append(message)
+    show_steps(new_messages)
     print("-" * 40)
