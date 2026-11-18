@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>새싹 카페 주문 도우미</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 16px; }
+    #chat { border: 1px solid #ddd; border-radius: 8px; padding: 12px; height: 420px; overflow-y: auto; }
+    .human { text-align: right; margin: 8px 0; }
+    .ai { text-align: left; margin: 8px 0; }
+    .bubble { display: inline-block; padding: 8px 12px; border-radius: 12px; max-width: 80%; white-space: pre-wrap; }
+    .human .bubble { background: #a78bfa; color: white; }
+    .ai .bubble { background: #f1f1f1; }
+    #message { width: 75%; padding: 8px; font-size: 16px; margin-top: 12px; }
+    button { padding: 8px 16px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h1>☕ 새싹 카페 주문 도우미</h1>
+  <div id="chat"></div>
+  <input id="message" placeholder="주문하실 메뉴를 말씀해 주세요">
+  <button onclick="send()">보내기</button>
+
+  <script>
+    const history = [];   // 지금까지의 대화를 모아 두는 목록
+
+    // 말풍선 하나를 화면에 더하는 함수 (role 은 "human" 또는 "ai")
+    function addBubble(role, text) {
+      const line = document.createElement("div");
+      line.className = role;
+      const bubble = document.createElement("span");
+      bubble.className = "bubble";
+      bubble.textContent = text;
+      line.appendChild(bubble);
+      const chat = document.getElementById("chat");
+      chat.appendChild(line);
+      chat.scrollTop = chat.scrollHeight;    // 맨 아래로 스크롤
+    }
+
+    async function send() {
+      const input = document.getElementById("message");
+      const message = input.value;
+      if (message === "") {                  // 빈칸이면 보내지 않아요
+        return;
+      }
+      input.value = "";
+      addBubble("human", message);
+
+      // 이번 말과 지난 대화 기록을 함께 보내요
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: message, history: history })
+      });
+      const data = await response.json();
+      addBubble("ai", data.answer);
+
+      // 기록에 이번 대화 두 개를 더해요
+      history.push({ role: "human", text: message });
+      history.push({ role: "ai", text: data.answer });
+    }
+  </script>
+</body>
+</html>

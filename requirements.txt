@@ -3,3 +3,5 @@ langchain>=1.0
 langchain-openai>=1.0
 python-dotenv>=1.0
 tiktoken>=0.7
+fastapi>=0.110
+uvicorn>=0.30
