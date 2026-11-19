@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<!-- ex06_cafe.html : 새싹 카페 주문 도우미 화면 (ex06_cafe_bot.py 서버가 보내 줘요)
+     흐름: 내 말풍선 그리기 → 이번 말 + 지난 대화(history)를 서버로 보내기
+           → AI 말풍선 그리기 → 이번 대화 두 개를 history 에 더하기 (다음 질문 때 함께 보내요) -->
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -17,7 +20,7 @@
 </head>
 <body>
   <h1>☕ 새싹 카페 주문 도우미</h1>
-  <div id="chat"></div>
+  <div id="chat"></div>                         <!-- 말풍선이 쌓이는 곳 -->
   <input id="message" placeholder="주문하실 메뉴를 말씀해 주세요">
   <button onclick="send()">보내기</button>
 
@@ -26,25 +29,25 @@
 
     // 말풍선 하나를 화면에 더하는 함수 (role 은 "human" 또는 "ai")
     function addBubble(role, text) {
-      const line = document.createElement("div");
-      line.className = role;
-      const bubble = document.createElement("span");
+      const line = document.createElement("div");     // 한 줄(오른쪽 또는 왼쪽 정렬)
+      line.className = role;                          // CSS 의 .human / .ai 모양이 붙어요
+      const bubble = document.createElement("span");  // 말풍선
       bubble.className = "bubble";
-      bubble.textContent = text;
-      line.appendChild(bubble);
+      bubble.textContent = text;                      // 말풍선 안 글자
+      line.appendChild(bubble);                       // 줄 안에 말풍선 넣기
       const chat = document.getElementById("chat");
-      chat.appendChild(line);
+      chat.appendChild(line);                         // 대화 칸에 줄 더하기
       chat.scrollTop = chat.scrollHeight;    // 맨 아래로 스크롤
     }
 
     async function send() {
       const input = document.getElementById("message");
-      const message = input.value;
+      const message = input.value;           // 입력한 말
       if (message === "") {                  // 빈칸이면 보내지 않아요
         return;
       }
-      input.value = "";
-      addBubble("human", message);
+      input.value = "";                      // 입력 칸 비우기
+      addBubble("human", message);           // 내 말풍선 먼저 그리기
 
       // 이번 말과 지난 대화 기록을 함께 보내요
       const response = await fetch("/chat", {
@@ -52,8 +55,8 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: message, history: history })
       });
-      const data = await response.json();
-      addBubble("ai", data.answer);
+      const data = await response.json();    // {"answer": "..."}
+      addBubble("ai", data.answer);          // AI 말풍선 그리기
 
       // 기록에 이번 대화 두 개를 더해요
       history.push({ role: "human", text: message });

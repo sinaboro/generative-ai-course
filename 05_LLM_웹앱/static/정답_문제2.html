@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- 정답_문제2.html : 세 줄 요약기 화면 (정답_문제2.py 서버가 보내 줘요)
+     흐름: 글 붙여 넣기 → [요약하기] → summarize() 가 /summary 로 보냄 → 받은 요약을 화면에 표시 -->
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -12,22 +14,22 @@
 </head>
 <body>
   <h1>📝 세 줄 요약기</h1>
-  <textarea id="text" placeholder="요약할 글을 붙여 넣으세요"></textarea>
+  <textarea id="text" placeholder="요약할 글을 붙여 넣으세요"></textarea>   <!-- 여러 줄 입력 칸 -->
   <button onclick="summarize()">요약하기</button>
-  <div id="summary"></div>
+  <div id="summary"></div>                      <!-- 요약이 나올 곳 -->
 
   <script>
     async function summarize() {
-      const text = document.getElementById("text").value;
-      const box = document.getElementById("summary");
+      const text = document.getElementById("text").value;    // 붙여 넣은 글
+      const box = document.getElementById("summary");        // 요약을 보여 줄 칸
       box.textContent = "요약하는 중...";
-      const response = await fetch("/summary", {
+      const response = await fetch("/summary", {            // 서버로 글 보내기
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: text })
       });
-      const data = await response.json();
-      box.textContent = data.summary;
+      const data = await response.json();                   // {"summary": "..."}
+      box.textContent = data.summary;                       // 요약 보여 주기
     }
   </script>
 </body>

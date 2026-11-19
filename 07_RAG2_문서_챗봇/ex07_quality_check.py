@@ -1,8 +1,10 @@
 # ex07_quality_check.py : 품질 점검 — 정답을 아는 질문으로 챗봇을 시험하기
-from doc_tools import ask, load_store
+# 흐름: ① [질문, 답에 꼭 들어갈 말] 시험 목록 → ② 질문마다 챗봇에게 묻고
+#       → ③ 꼭 들어갈 말이 답에 있으면 O, 없으면 X → ④ 맞힌 개수 / 전체
+from doc_tools import ask, load_store                    # 문서 챗봇 함수 · 저장소 불러오기
 
 store = load_store()
-tests = [                                     # [질문, 답에 꼭 들어 있어야 할 말]
+tests = [                                     # ① [질문, 답에 꼭 들어 있어야 할 말]
     ["연차는 1년에 며칠 받아?", "15"],
     ["출장 가서 밥값은 하루에 얼마까지 돼?", "3만"],
     ["재택근무는 일주일에 몇 번 할 수 있어?", "2"],
@@ -13,14 +15,14 @@ tests = [                                     # [질문, 답에 꼭 들어 있�
     ["회사 주차장은 몇 층에 있어?", "안내서에 없는"],   # 안내서에 없는 질문 → 모른다고 해야 정답
 ]
 
-passed = 0
-for question, must_have in tests:
+passed = 0                                    # 맞힌 개수
+for question, must_have in tests:             # ② [질문, 꼭 들어갈 말] 을 두 변수로
     answer, pages = ask(store, question)
-    if must_have in answer:
+    if must_have in answer:                   # ③ 꼭 들어갈 말이 답 안에 있으면
         result = "O"
         passed = passed + 1
     else:
         result = "X"
-    print(result, question, "→", answer.replace("\n", " "))
+    print(result, question, "→", answer.replace("\n", " "))   # 줄 바꿈을 빈칸으로 바꿔 한 줄로
 
-print("점수:", passed, "/", len(tests))
+print("점수:", passed, "/", len(tests))       # ④

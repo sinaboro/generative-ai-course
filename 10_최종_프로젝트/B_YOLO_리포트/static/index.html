@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<!-- index.html : 거리 사진 안전 리포트 화면 (step3_app.py 서버가 보내 줘요)
+     흐름: 사진 고르기 → [분석하기] → 사진을 FormData 로 /analyze 에 보내기
+           → 상자 그린 사진(/result.jpg) + 찾은 물체 · 요약 · 주의할 점 카드를 보여 주기 -->
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -11,34 +14,34 @@
 </head>
 <body>
   <h2>📷 거리 사진 안전 리포트 (YOLO + LLM)</h2>
-  <input type="file" id="photo" accept="image/*">
+  <input type="file" id="photo" accept="image/*">     <!-- 사진 파일만 고를 수 있는 칸 -->
   <button onclick="analyze()">분석하기</button>
-  <div id="result"></div>
+  <div id="result"></div>                              <!-- 결과 사진 · 카드가 들어갈 곳 -->
 
   <script>
     async function analyze() {
-      const file = document.getElementById("photo").files[0];
-      if (!file) {
+      const file = document.getElementById("photo").files[0];   // 고른 파일 (첫 번째)
+      if (!file) {                            // 고르지 않았으면 멈춰요
         return;
       }
       const box = document.getElementById("result");
       box.textContent = "분석하는 중...";
       const form = new FormData();            // 파일을 보낼 때는 FormData 를 써요
-      form.append("file", file);
+      form.append("file", file);              // 서버 함수의 매개변수 이름(file)과 같게
       const response = await fetch("/analyze", { method: "POST", body: form });
-      const data = await response.json();
+      const data = await response.json();     // {"counts", "summary", "safety_notes"}
 
-      box.innerHTML = "";
+      box.innerHTML = "";                     // "분석하는 중..." 지우기
       const img = document.createElement("img");
       img.src = "/result.jpg?t=" + Date.now();   // 새 사진을 다시 받아 오게 시각을 붙여요
       box.appendChild(img);
       const card = document.createElement("div");
       card.className = "card";
       let text = "찾은 물체: " + JSON.stringify(data.counts) + "\n요약: " + data.summary;
-      for (const note of data.safety_notes) {
+      for (const note of data.safety_notes) { // 주의할 점을 한 줄씩 덧붙이기
         text = text + "\n⚠️ " + note;
       }
-      card.style.whiteSpace = "pre-wrap";
+      card.style.whiteSpace = "pre-wrap";     // \n 을 실제 줄 바꿈으로 보여 주기
       card.textContent = text;
       box.appendChild(card);
     }

@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<!-- doc_bot.html : 새싹전자 안내서 챗봇 화면 (ex08_web_doc_bot.py 서버가 보내 줘요)
+     흐름: [물어보기] → 질문 카드를 맨 위에 만들기("찾아보는 중...") → /ask 로 질문 보내기
+           → 받은 답과 찾아본 쪽을 카드에 채우기 -->
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -17,29 +20,30 @@
   <p>직원 안내서(PDF)에서 찾아 답하고, 찾아본 쪽을 알려 줘요.</p>
   <input id="question" placeholder="예: 연차는 며칠이에요?">
   <button onclick="send()">물어보기</button>
-  <div id="answers"></div>
+  <div id="answers"></div>                      <!-- 질문 카드가 쌓이는 곳 -->
 
   <script>
     async function send() {
-      const question = document.getElementById("question").value;
-      if (question === "") {
+      const question = document.getElementById("question").value;   // 입력한 질문
+      if (question === "") {                     // 빈칸이면 보내지 않아요
         return;
       }
       // 질문 · 답 · 쪽 번호를 보여 줄 카드 하나 만들기
       const card = document.createElement("div");
       card.className = "card";
+      // 카드 안에 칸 세 개(질문 .q · 답 .a · 쪽 .pages)를 한 번에 만들어요
       card.innerHTML = '<div class="q"></div><div class="a">찾아보는 중...</div><div class="pages"></div>';
-      card.querySelector(".q").textContent = "Q. " + question;
+      card.querySelector(".q").textContent = "Q. " + question;     // 카드 안의 .q 칸 찾아 글 넣기
       document.getElementById("answers").prepend(card);   // 새 카드를 맨 위에
 
-      const response = await fetch("/ask", {
+      const response = await fetch("/ask", {     // 서버로 질문 보내기
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question: question })
       });
-      const data = await response.json();
+      const data = await response.json();        // {"answer": "...", "pages": ["2쪽", ...]}
       card.querySelector(".a").textContent = data.answer;
-      card.querySelector(".pages").textContent = "📄 찾아본 쪽: " + data.pages.join(", ");
+      card.querySelector(".pages").textContent = "📄 찾아본 쪽: " + data.pages.join(", ");   // 목록 → "2쪽, 3쪽"
     }
   </script>
 </body>

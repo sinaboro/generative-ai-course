@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- ex05_stream.html : 스트리밍 챗봇 화면 (ex05_stream_chat.py 서버가 보내 줘요)
+     흐름: [보내기] → /chat-stream 으로 질문 → 답 조각이 올 때마다 읽어서 답 칸에 이어 붙이기 → 더 없으면 끝 -->
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -14,15 +16,15 @@
   <h1>⚡ 스트리밍 챗봇</h1>
   <input id="message" placeholder="질문을 입력하세요">
   <button onclick="send()">보내기</button>
-  <div id="answer"></div>
+  <div id="answer"></div>                       <!-- 답 조각이 이어 붙는 곳 -->
 
   <script>
     async function send() {
-      const message = document.getElementById("message").value;
-      const answerBox = document.getElementById("answer");
+      const message = document.getElementById("message").value;   // 입력한 질문
+      const answerBox = document.getElementById("answer");          // 답 칸
       answerBox.textContent = "";                       // 이전 답 지우기
 
-      const response = await fetch("/chat-stream", {
+      const response = await fetch("/chat-stream", {    // 질문 보내기 (ex04 와 같은 모양)
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: message })
@@ -31,7 +33,7 @@
       // 답을 한 번에 받지 않고, 조각이 올 때마다 읽어서 화면에 이어 붙여요
       const reader = response.body.getReader();         // 조각을 읽는 도구
       const decoder = new TextDecoder();                // 받은 데이터를 글자로 바꾸는 도구
-      while (true) {
+      while (true) {                                    // 조각이 끝날 때까지 반복
         const result = await reader.read();             // 다음 조각 기다리기
         if (result.done) {                              // 더 올 조각이 없으면 끝
           break;

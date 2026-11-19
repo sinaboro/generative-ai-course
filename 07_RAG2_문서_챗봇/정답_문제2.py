@@ -1,15 +1,17 @@
 # 정답_문제2.py : 텍스트(.txt) 문서로 만드는 도서관 안내 챗봇
-from langchain_core.documents import Document
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.vectorstores import InMemoryVectorStore
+# 흐름: ① txt 읽어 Document 로 → ② 조각으로 나누기 → ③ 저장소 → ④ 도서관용 규칙 틀 + 체인
+#       → ⑤ 질문마다 비슷한 조각 2개를 찾아 자료로 건네고 답하기
+from langchain_core.documents import Document                  # 글 + 꼬리표 묶음
+from langchain_core.output_parsers import StrOutputParser      # 글자만 꺼내기
+from langchain_core.prompts import ChatPromptTemplate          # 질문 틀
+from langchain_core.vectorstores import InMemoryVectorStore    # 벡터 저장소
 
-from common import get_embeddings, get_llm
-from doc_tools import make_context, split_docs
+from common import get_embeddings, get_llm                     # 임베딩 모델 · AI
+from doc_tools import make_context, split_docs                 # 자료 만들기 · 나누기
 
 # ① txt 파일 읽기 → Document 하나로 (txt 에는 쪽이 없어서 page 를 1 로 둬요)
-with open("data/도서관_이용안내.txt", encoding="utf-8") as file:
-    text = file.read()
+with open("data/도서관_이용안내.txt", encoding="utf-8") as file:   # with: 다 읽으면 파일을 자동으로 닫아요
+    text = file.read()                                           # 파일 전체 글자
 docs = [Document(page_content=text, metadata={"source": "도서관_이용안내.txt", "page": 1})]
 
 # ② 나누기 → ③ 저장소
@@ -30,6 +32,6 @@ template = ChatPromptTemplate.from_template("""너는 새싹 도서관 안내 �
 chain = template | get_llm(temperature=0) | StrOutputParser()
 
 for question in ["새 책은 며칠 빌릴 수 있어?", "월요일에 가도 돼?", "도서관에 주차할 수 있어?"]:
-    found = store.similarity_search(question, k=2)
+    found = store.similarity_search(question, k=2)              # ⑤ 비슷한 조각 2개
     print("질문:", question)
     print("답:", chain.invoke({"context": make_context(found), "question": question}))

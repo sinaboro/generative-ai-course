@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+<!-- ex04_chat.html : 나의 첫 AI 챗봇 화면 (ex04_web_chat.py 서버가 보내 줘요)
+     흐름: 질문 입력 → [보내기] → send() 가 서버 /chat 으로 질문을 보냄 → 받은 답을 화면에 표시 -->
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8">                       <!-- 한글이 깨지지 않게 -->
   <title>나의 첫 AI 챗봇</title>
   <style>
     body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 16px; }
@@ -14,22 +16,22 @@
   <h1>🤖 나의 첫 AI 챗봇</h1>
   <!-- 질문 입력 칸과 버튼 -->
   <input id="message" placeholder="질문을 입력하세요">
-  <button onclick="send()">보내기</button>
+  <button onclick="send()">보내기</button>        <!-- 누르면 아래 send() 함수 실행 -->
   <!-- AI 의 답이 들어갈 곳 -->
   <div id="answer">여기에 답이 나와요.</div>
 
   <script>
-    // 버튼을 누르면 실행되는 함수
+    // 버튼을 누르면 실행되는 함수 (async: 안에서 await 로 서버의 답을 기다릴 수 있어요)
     async function send() {
       const message = document.getElementById("message").value;   // 입력한 글자
       const answerBox = document.getElementById("answer");          // 답을 보여 줄 칸
-      answerBox.textContent = "생각하는 중...";
+      answerBox.textContent = "생각하는 중...";                       // 기다리는 동안 보여 줄 글
 
       // 서버의 /chat 으로 {"message": 입력한 글자} 를 보내요
       const response = await fetch("/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: message })
+        method: "POST",                                     // 데이터를 담아 보내는 방식
+        headers: { "Content-Type": "application/json" },    // "JSON 으로 보내요" 라는 표시
+        body: JSON.stringify({ message: message })          // 객체 → JSON 글자
       });
       const data = await response.json();    // 서버가 보낸 {"answer": ...} 받기
       answerBox.textContent = data.answer;   // 답을 화면에 보여 주기
