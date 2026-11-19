@@ -15,6 +15,7 @@ from faq_data import FAQ                              # 안내문 목록
 @tool
 def calculator(expression: str) -> str:
     """사칙연산 식을 정확하게 계산해요. 예: '4500*4 + 6000*2'"""
+    print("🧮 calculator 도구가 실행됐어요:", expression)   # 도구가 실제로 실행됐는지 확인
     for char in expression:                   # 숫자 · 연산 기호 · 괄호 · 빈칸만 허락해요 (안전)
         if char not in "0123456789+-*/(). ":
             return "계산할 수 없는 식이에요: " + expression
@@ -24,6 +25,7 @@ def calculator(expression: str) -> str:
 @tool
 def exchange_rate(currency: str) -> str:
     """외화 1 단위가 몇 원인지 알려 줘요. currency 는 USD, JPY, EUR 중 하나."""
+    print("💱 exchange_rate 도구가 실행됐어요:", currency)   # 도구가 실제로 실행됐는지 확인
     rates = {"USD": 1380, "JPY": 9.2, "EUR": 1495}   # 연습용으로 정해 둔 환율
     code = currency.upper()                   # "usd" 로 와도 "USD" 로 (대문자로 바꾸기)
     if code not in rates:
@@ -55,6 +57,9 @@ def show_steps(messages):
             for call in message.tool_calls:
                 print("🤖 도구 부탁:", call["name"], call["args"])
         elif message.type == "tool":                          # 도구 실행 결과
-            print("🔧 도구 결과:", message.content.strip().replace("\n", " / "))
+            text = message.content.strip().replace("\n", " / ")   # 줄 바꿈은 " / " 로 바꿔 한 줄로
+            if len(text) > 120:                               # 너무 길면 (노션의 JSON 결과 등) 앞부분만
+                text = text[:120] + " …"
+            print("🔧 도구 결과:", text)
         elif message.type == "ai":                            # 부탁 없는 AI 메시지 = 답
             print("🤖 답:", message.content)

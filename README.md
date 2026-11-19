@@ -3,7 +3,7 @@
 파이썬 기초만 아는 **초보자**가 이 교안만 보고도 따라 할 수 있게 만든 자기주도 학습 과정이에요. 생성형 AI 의 원리부터 LangChain 으로 AI 부르기, 프롬프트, 웹 챗봇, RAG(문서 기반 답변), LangGraph 에이전트, MCP 와 안전한 서비스, 최종 프로젝트까지 한 줄로 이어서 배워요. 모든 예제는 실제 AI(OpenRouter)로 실행한 결과를 교안에 실었어요.
 
 - **강사**: 김대철
-- 📕 **통합 교안 PDF**: [생성형AI_통합교안.pdf](%EC%83%9D%EC%84%B1%ED%98%95AI_%ED%86%B5%ED%95%A9%EA%B5%90%EC%95%88.pdf) (Part 01 ~ 10 전체, 276쪽 · 학습 안내 · 진도표 · 쉬운 용어 사전 · 막힐 때 점검표)
+- 📕 **통합 교안 PDF**: [생성형AI_통합교안.pdf](%EC%83%9D%EC%84%B1%ED%98%95AI_%ED%86%B5%ED%95%A9%EA%B5%90%EC%95%88.pdf) (Part 01 ~ 10 전체, 287쪽 · 학습 안내 · 진도표 · 쉬운 용어 사전 · 막힐 때 점검표)
 - **실습 환경**: Windows + Python 3.12 이상 + VS Code + OpenRouter API 키 (키가 없으면 "연습 모드"로 실행돼요)
 - 먼저 들으면 좋은 과정: [ai-service-course](https://github.com/sinaboro/ai-service-course) 의 Python 기초 (05 웹 앱은 HTML · CSS · JavaScript · FastAPI 과정과 이어져요)
 
@@ -19,7 +19,7 @@
 | 06 | [RAG ① 임베딩과 검색](06_RAG1_%EC%9E%84%EB%B2%A0%EB%94%A9%EA%B3%BC_%EA%B2%80%EC%83%89/) | 키워드 vs 의미 검색 · 임베딩 · 코사인 유사도 · 벡터 저장소 · 첫 RAG | 8h | [📘](06_RAG1_%EC%9E%84%EB%B2%A0%EB%94%A9%EA%B3%BC_%EA%B2%80%EC%83%89/06_RAG1_%EC%9E%84%EB%B2%A0%EB%94%A9%EA%B3%BC_%EA%B2%80%EC%83%89_%EA%B5%90%EC%95%88.docx) |
 | 07 | [RAG ② 문서 챗봇](07_RAG2_%EB%AC%B8%EC%84%9C_%EC%B1%97%EB%B4%87/) | PDF 읽기 · 청킹 · 저장소 저장 · 출처 표시 · 품질 점검 · 문서 챗봇 웹 앱 | 10h | [📘](07_RAG2_%EB%AC%B8%EC%84%9C_%EC%B1%97%EB%B4%87/07_RAG2_%EB%AC%B8%EC%84%9C_%EC%B1%97%EB%B4%87_%EA%B5%90%EC%95%88.docx) |
 | 08 | [LangGraph 와 에이전트](08_LangGraph_%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8/) | @tool · Tool Calling · 상태 · 노드 · 갈림길 · 그래프 그림으로 노드 흐름 보기 · 도구를 쓰는 에이전트 · 기억하는 에이전트 | 10h | [📘](08_LangGraph_%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8/08_LangGraph_%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8_%EA%B5%90%EC%95%88.docx) |
-| 09 | [MCP 와 안전한 AI 서비스](09_MCP%EC%99%80_%EC%95%88%EC%A0%84%ED%95%9C_AI/) | 프롬프트 인젝션 · 개인정보 가리기 · 비용 한도 · AI 채점관 · MCP 서버와 에이전트 | 10h | [📘](09_MCP%EC%99%80_%EC%95%88%EC%A0%84%ED%95%9C_AI/09_MCP%EC%99%80_%EC%95%88%EC%A0%84%ED%95%9C_AI_%EA%B5%90%EC%95%88.docx) |
+| 09 | [MCP 와 안전한 AI 서비스](09_MCP%EC%99%80_%EC%95%88%EC%A0%84%ED%95%9C_AI/) | 프롬프트 인젝션 · 개인정보 가리기 · 비용 한도 · AI 채점관 · MCP 서버와 에이전트 · 노션 MCP 연동 | 10h | [📘](09_MCP%EC%99%80_%EC%95%88%EC%A0%84%ED%95%9C_AI/09_MCP%EC%99%80_%EC%95%88%EC%A0%84%ED%95%9C_AI_%EA%B5%90%EC%95%88.docx) |
 | 10 | [최종 프로젝트](10_%EC%B5%9C%EC%A2%85_%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/) | 기획서 → RAG · 도구 · 에이전트 · 웹 · 안전 · 점검으로 서비스 완성, 참고 프로젝트 사내 도우미 · YOLO + LLM 선택 주제 | 24h | [📘](10_%EC%B5%9C%EC%A2%85_%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/10_%EC%B5%9C%EC%A2%85_%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EA%B5%90%EC%95%88.docx) |
 
 ## 🛠 시작하기

@@ -2,7 +2,7 @@
 # MCP 라이브러리는 async(비동기) 문법을 써요. 어려운 부분은 이 파일에 숨겨 두었으니,
 # 예제에서는 list_mcp_tools · call_mcp_tool · make_langchain_tools 세 함수만 쓰면 돼요.
 # ── 전체 흐름 (도구 하나를 부를 때) ─────────────────────────────
-# ① 서버 파일을 "python 서버파일.py" 로 새로 켜요 (_server)
+# ① 서버를 새로 켜요: 우리 서버는 "python 서버파일.py", 노션 같은 외부 서버는 "npx …" (_server)
 # ② 켠 서버와 표준 입출력(글자 주고받는 통로)으로 연결해요 (stdio_client → read, write 통로 두 개)
 # ③ 그 통로 위에 MCP 대화 세션을 열고 인사해요 (ClientSession → initialize)
 # ④ "도구 목록 줘" 또는 "이 도구를 이 값으로 실행해 줘" 를 보내고 결과를 받아요
@@ -22,7 +22,12 @@ from mcp.client.stdio import stdio_client              # 표준 입출력으로 
 
 
 def _server(server_file):
-    """'python 서버파일.py' 로 서버를 켜는 설정 (이름 앞 _ 는 "이 파일 안에서만 쓰는 함수" 라는 뜻)"""
+    """서버를 켜는 설정을 만들어요 (이름 앞 _ 는 "이 파일 안에서만 쓰는 함수" 라는 뜻)
+    server_file 이 "mcp_server.py" 같은 글자면 → python 으로 그 파일을 켜요 (우리가 만든 서버)
+    server_file 이 {"command": …, "args": …, "env": …} 사전이면 → 그 명령으로 켜요 (노션 같은 외부 서버)"""
+    if isinstance(server_file, dict):         # 외부 MCP 서버 (ex08 의 노션)
+        return StdioServerParameters(command=server_file["command"], args=server_file["args"],
+                                     env=server_file.get("env"))   # env: 서버에게 넘겨줄 환경 변수 (토큰 등)
     return StdioServerParameters(command=sys.executable, args=[server_file])   # ① 명령어 + 파일 이름
 
 
@@ -66,9 +71,12 @@ def _to_langchain(server_file, mcp_tool):
                                         args_schema=mcp_tool.input_schema)    # 받는 값의 모양 (서버가 알려 준 것)
 
 
-def make_langchain_tools(server_file):
-    """MCP 서버의 도구를 모두 LangChain 도구 목록으로 만들어요."""
+def make_langchain_tools(server_file, only=None):
+    """MCP 서버의 도구를 LangChain 도구 목록으로 만들어요.
+    only 에 도구 이름 목록을 주면 그 도구만 골라요 (도구가 너무 많으면 AI 가 헷갈리고 요금도 늘어요)."""
     tools = []
     for mcp_tool in list_mcp_tools(server_file):   # 서버의 도구를 하나씩
+        if only is not None and mcp_tool.name not in only:   # 고른 목록에 없는 도구는 건너뛰기
+            continue
         tools.append(_to_langchain(server_file, mcp_tool))   # LangChain 도구로 바꿔 모으기
     return tools
